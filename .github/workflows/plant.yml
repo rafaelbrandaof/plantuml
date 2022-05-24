@@ -10,14 +10,14 @@ on:
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   diagrams:
     name: Draw diagrams
     runs-on: ubuntu-latest
+    env:
+        UML_FILES: ".puml"
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
