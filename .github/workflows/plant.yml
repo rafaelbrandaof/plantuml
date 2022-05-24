@@ -26,7 +26,7 @@ jobs:
           imagedir=images/diagrams
           mkdir -p $imagedir
       - name: create images
-        uses: cloudbees/plantuml-github-action@master
+        uses: Timmy/plantuml-action@v1
         with:
           args: '-v -o images/diagrams -tpng test.puml'
       - name: debugger
