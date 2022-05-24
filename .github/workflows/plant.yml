@@ -46,7 +46,7 @@ jobs:
       - name: create images
         uses: cloudbees/plantuml-github-action@master
         with:
-          args: '-v -o images/diagrams -tpng "plantuml"'
+          args: '-v -o images/diagrams -tpng /plantuml/*.puml'
       - name: debugger
         run: |
           pwd
