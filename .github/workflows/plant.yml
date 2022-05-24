@@ -21,14 +21,32 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get changed UML files
+        id: getfile
+        run: |
+          git diff-tree -r --no-commit-id --summary ${{ github.sha }} \
+          | awk -F' ' '{
+            # ensure we are not trying to process deleted files
+            # only process puml files
+            # do not try to process our theme or custom config
+            if ( $1 !~ /^delete$/ && $4 ~ /\.puml$/ && $4 !~ /(theme|config)\.puml$/ )
+            {
+              # only print the file name and strip newlines for spaces
+              printf "::set-output name=files::" "%s ", $4
+            }
+          }
+          END { print "" } # ensure we do print a newline at the end
+          '
       - name: create directories
         run: |
           imagedir=images/diagrams
           mkdir -p $imagedir
       - name: create images
-        uses: Timmy/plantuml-action@v1
+        uses: cloudbees/plantuml-github-action@master
         with:
-          args: '-v -o images/diagrams -tpng test.puml'
+          args: '-v -o images/diagrams -tpng ${{ steps.getfile.outputs.files }}'
       - name: debugger
         run: |
           pwd
