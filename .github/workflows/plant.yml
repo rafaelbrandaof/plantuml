@@ -21,10 +21,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Process diagrams
+      - name: create directories
+        run: |
           imagedir=images/diagrams
           mkdir -p $imagedir
+      - name: create images
         uses: Timmy/plantuml-action@v1
         with:
-          args: '-tpng images/diagrams/*.txt'
+          args: '-tpng images/diagrams/*.png'
       
