@@ -28,7 +28,7 @@ jobs:
       - name: create images
         uses: Timmy/plantuml-action@v1
         with:
-          args: '-o images/diagrams -tpng /home/runner/work/plantuml/plantuml/*.puml'
+          args: '-v -o images/diagrams -tpng /home/runner/work/plantuml/plantuml/'
       - name: debugger
         run: |
           pwd
