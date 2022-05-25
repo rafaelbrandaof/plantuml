@@ -33,7 +33,6 @@ jobs:
         id: git_diff
         with:
           PATTERNS: '*.puml'
-          RELATIVE: 'plantuml'
       - name: List all action
         run: |
           for file in ${{ steps.git_diff.outputs.diff }}; do
