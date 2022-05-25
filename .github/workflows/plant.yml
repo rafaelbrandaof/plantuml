@@ -25,10 +25,11 @@ jobs:
         with:
           separator: " "
           files: |
-            '*.puml'
-            "*.iuml"
+            **.puml
+            **.iuml
+            !**.yml
           files_ignore: |
-            '*.yml'
+            *.yml
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
@@ -37,7 +38,7 @@ jobs:
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
-          args: -v -o images -tsvg ${{ steps.changed-files.outputs.all_changed_files }}
+          args: -v -o images -tsvg -tpng ${{ steps.changed-files.outputs.all_changed_files }}
       - name: debugger
         run: |
           pwd
