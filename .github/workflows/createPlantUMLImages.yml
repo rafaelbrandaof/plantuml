@@ -1,4 +1,4 @@
-name: create Plant UML Images
+name: create PlantUML Images
 on: 
   workflow_dispatch:
 jobs:
@@ -20,4 +20,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PlantUML images
-          path: images
+          path: plantuml/images
