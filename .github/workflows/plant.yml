@@ -24,8 +24,10 @@ jobs:
         id: getfile
         run: |
           echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD | grep .puml | xargs)"
+          git diff --name-only HEAD^
       - name: changed UML files trace
         run: |
+          echo "Showing changed files"
           echo ${{ steps.getfile.outputs.files }}
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
