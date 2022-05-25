@@ -24,6 +24,7 @@ jobs:
         uses: tj-actions/changed-files@v20.2
         with:
           separator: " "
+          directory: plantuml
           files: |
             *.puml
       - name: List all changed files
@@ -34,7 +35,7 @@ jobs:
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
-          args: -v -o images -tsvg ${{steps.changed-files.outputs.files}}
+          args: -v -o images -tsvg ${{ steps.changed-files.outputs.all_changed_files }}
       - name: debugger
         run: |
           pwd

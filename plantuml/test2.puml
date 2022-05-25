@@ -1,4 +1,4 @@
 @startuml
 skinparam minClassWidth 200
-!include theinclude.iuml
+paul->bob
 @enduml
