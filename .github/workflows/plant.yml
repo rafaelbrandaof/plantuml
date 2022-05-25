@@ -24,7 +24,6 @@ jobs:
         uses: tj-actions/changed-files@v20.2
         with:
           separator: " "
-          path: plantuml
           files: |
             *.puml
       - name: List all changed files
