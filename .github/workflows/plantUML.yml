@@ -19,7 +19,7 @@ jobs:
           mkdir -p images/diagrams
           rm -rf images/diagrams/*
           java -version
-          wget https://sourceforge.net/projects/plantuml/files/plantuml-nodot.1.2022.5.jar/download
+          wget -P https://sourceforge.net/projects/plantuml/files/plantuml-nodot.1.2022.5.jar/download
           for fullname in src/plantuml/*.puml
           do
             base=$(basename -- "$fullname")
