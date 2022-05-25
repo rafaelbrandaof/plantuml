@@ -14,12 +14,15 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
           check-latest: true
+      - name: Download plantuml file
+        run: |
+          wget -O plantuml.jar "https://sourceforge.net/projects/plantuml/files/plantuml-nodot.1.2022.5.jar" 
+          ls -ltr
       - name: Generate Images
         run: |
           mkdir -p images/diagrams
           rm -rf images/diagrams/*
-          java -version
-          wget -P https://sourceforge.net/projects/plantuml/files/plantuml-nodot.1.2022.5.jar/download
+          java -version  
           for fullname in src/plantuml/*.puml
           do
             base=$(basename -- "$fullname")
