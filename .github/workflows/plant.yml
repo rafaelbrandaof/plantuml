@@ -23,12 +23,12 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v20.2
         with:
+          path: './plantuml'
           files: |
             **.puml
             **.iuml
-            !**.yml
           files_ignore: |
-            *.yml
+            **.yml
             plant.yml
       - name: List all changed files
         run: |
@@ -39,10 +39,15 @@ jobs:
         uses: holowinski/plantuml-github-action@main
         with:
           args: -v -o images -tsvg -tpng ${{ steps.changed-files.outputs.all_changed_files }}
+      - name: Generate PNG Diagrams
+        uses: holowinski/plantuml-github-action@main
+        with:
+          args: -v -o images -tpng ${{ steps.changed-files.outputs.all_changed_files }}
       - name: debugger
         run: |
           pwd
           ls -la
+          ls -la images
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
