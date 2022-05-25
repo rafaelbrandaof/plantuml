@@ -28,5 +28,11 @@ jobs:
             base=$(basename -- "$fullname")
             echo ${base%.*}
             java -jar plantuml.jar -o images/diagrams/ -tpng src/plantuml/${base%.*}.puml
+            java -jar plantuml.jar -o images/diagrams/ -tsvg src/plantuml/${base%.*}.puml
           done
+      - name: Archive created images
+        uses: actions/upload-artifact@v3
+        with:
+          name: PlantUML images
+          path: images/diagrams
 
