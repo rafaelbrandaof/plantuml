@@ -32,9 +32,11 @@ jobs:
             outdir=$(dirname $fullname | sed s+src/plantuml+${imagedir}+)
             echo ${outdir}
             mkdir -p $outdir
-            java -jar plantuml.jar -o ./images/diagrams/ -tpng src/plantuml
-            java -jar plantuml.jar -o ./images/diagrams/ -tsvg src/plantuml
+            java -jar plantuml.jar -v -o ./images/diagrams/ -tpng src/plantuml/*
+            java -jar plantuml.jar -v -o ./images/diagrams/ -tsvg src/plantuml/*
           done
+          ls -al 
+          tree ./
       - name: Archive created images
         uses: actions/upload-artifact@v3
         with:
