@@ -46,10 +46,15 @@ jobs:
       - name: create images
         uses: cloudbees/plantuml-github-action@master
         with:
-          args: '-v -o images -tpng plantuml/*.puml'
+          args: '-v -o images -tpng plantuml/test.puml'
       - name: debugger
         run: |
           pwd
           ls -la
           ls -la images
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: plant uml images
+          path: plantuml/images/*.*
       
