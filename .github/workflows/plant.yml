@@ -22,10 +22,21 @@ jobs:
       - name: Get changed files
         id: changed-files
         run: |
-          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT ${{ github.sha }}..HEAD | xargs)"
+          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT HEAD^..HEAD *.puml | xargs)"
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+      - name: try last action
+        uses: technote-space/get-diff-action@v6
+        id: git_diff
+        with:
+          PATTERNS: '*.puml'
+          RELATIVE: 'plantuml'
+      - name: List all action
+        run: |
+          for file in ${{ steps.git_diff.outputs.diff }}; do
             echo "$file was changed"
           done
       - name: Generate SVG Diagrams
