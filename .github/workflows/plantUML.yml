@@ -20,13 +20,18 @@ jobs:
           ls -ltr
       - name: Generate Images
         run: |
-          mkdir -p images/diagrams
+          imagedir=images/diagrams
+          mkdir -p $imagedir
           rm -rf images/diagrams/*
           java -version  
-          for fullname in src/plantuml/*.puml
+           for fullname in $(find src/plantuml/ -type f -name '*.puml')
           do
-            base=$(basename -- "$fullname")
-            echo ${base%.*}
+            echo ${fullname}
+            base=$(basename "${fullname}" .puml)
+            echo ${base}
+            outdir=$(dirname $fullname | sed s+src/plantuml+${imagedir}+)
+            echo ${outdir}
+            mkdir -p $outdir
             java -jar plantuml.jar -o images/diagrams/ -tpng src/plantuml/${base%.*}.puml
             java -jar plantuml.jar -o images/diagrams/ -tsvg src/plantuml/${base%.*}.puml
           done
