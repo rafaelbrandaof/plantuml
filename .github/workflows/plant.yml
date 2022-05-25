@@ -22,7 +22,7 @@ jobs:
       - name: Get changed files
         id: changed-files
         run: |
-          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
+          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT ${{ github.sha }}..HEAD | xargs)"
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
