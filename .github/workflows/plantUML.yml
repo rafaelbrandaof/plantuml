@@ -39,5 +39,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PlantUML images
-          path: images/diagrams
+          path: images/diagrams/*
 
