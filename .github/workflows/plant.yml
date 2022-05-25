@@ -32,7 +32,7 @@ jobs:
         uses: technote-space/get-diff-action@v6
         id: git_diff
         with:
-          PATTERNS: '*.puml'
+          PATTERNS: .puml
       - name: List all action
         run: |
           for file in ${{ steps.git_diff.outputs.diff }}; do
