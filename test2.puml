@@ -1,4 +1,4 @@
 @startuml
-skinparam minClassWidth 200
+skinparam minClassWidth 220
 paul->bob
 @enduml

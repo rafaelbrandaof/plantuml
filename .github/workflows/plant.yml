@@ -22,25 +22,19 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v20.2
+        with:
+          separator: " "
+          files: |
+            *.puml
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-
-      - name: Get changed UML files
-        id: getfile
-        run: |
-          echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD | grep .puml | xargs)"
-          git diff --name-only HEAD^ HEAD
-      - name: changed UML files trace
-        run: |
-          echo "Showing changed files"
-          echo ${{ steps.getfile.outputs.files }}
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
-          args: -v -o images -tsvg ${{steps.getfile.outputs.files}}
+          args: -v -o images -tsvg ${{steps.changed-files.outputs.files}}
       - name: debugger
         run: |
           pwd
