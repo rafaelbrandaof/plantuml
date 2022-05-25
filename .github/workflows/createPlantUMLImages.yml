@@ -9,7 +9,7 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v2
       - name: Generate SVG Diagrams
-        uses: holowinski/plantuml-github-action@main
+
         with:
           args: -v -o images -tsvg plantuml
       - name: Generate PNG Diagrams
