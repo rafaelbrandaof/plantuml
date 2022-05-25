@@ -1,4 +1,4 @@
-name: create PlantUML Images
+name: create PlantUML JAR
 on:
   workflow_dispatch:
 jobs:
