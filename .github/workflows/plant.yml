@@ -38,6 +38,7 @@ jobs:
         uses: technote-space/get-diff-action@v6
         id: git_diff
         with:
+          TO: ${{ steps.last_successful_commit.outputs.commit_hash }}
           PATTERNS: '*.puml'
       - name: List all action
         run: |
@@ -54,10 +55,7 @@ jobs:
           args: -v -o images -tpng ${{ steps.changed-files.outputs.all_changed_files }}
       - name: debugger
         run: |
-          pwd
-          ls -la
-          ls -la images
-          tree ./
+          tree 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
