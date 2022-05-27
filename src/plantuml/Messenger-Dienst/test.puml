@@ -1,4 +1,4 @@
 @startuml
-skinparam minClassWidth 300
+skinparam minClassWidth 400
 !include theinclude.iuml
 @enduml
