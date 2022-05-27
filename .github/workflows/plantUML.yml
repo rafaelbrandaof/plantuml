@@ -30,6 +30,7 @@ jobs:
             base=$(basename "${fullname}" .puml)
             echo ${base}
             outdir=$(dirname $fullname | sed s+src/plantuml+${imagedir}+)
+            outdir=$PWD+$outdir
             echo ${outdir}
             mkdir -p $outdir
             java -jar plantuml.jar -v -o ${outdir} -tpng ${fullname}
