@@ -6,6 +6,9 @@ jobs:
     name: Create PlantUML images
     runs-on: ubuntu-latest
     steps:
+      - uses: nrwl/last-successful-commit-action@v1
+        id: last_successful_commit
+      - run: echo ${{ steps.last_successful_commit.outputs.commit_hash }}
       - name: Checkout Source
         uses: actions/checkout@v2
       - name: Generate SVG Diagrams
@@ -23,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PlantUML images
-          path: plantuml/images/
+          path: plantuml/
