@@ -32,11 +32,11 @@ jobs:
             outdir=$(dirname $fullname | sed s+src/plantuml+${imagedir}+)
             echo "Outdir: ${outdir}"
             mkdir -p $outdir
-            ooutdir="${PWD}/${outdir}"
-            echo "Outdir: ${ooutdir}"
+            plantoutdir="${PWD}/${outdir}"
+            echo "PlantOutdir: ${plantoutdir}"
             tree ./
-            java -jar plantuml.jar -v -o ${outdir} -tpng ${fullname}
-            java -jar plantuml.jar -v -o ${outdir} -tsvg ${fullname}
+            java -jar plantuml.jar -v -o ${plantoutdir} -tpng ${fullname}
+            java -jar plantuml.jar -v -o ${plantoutdir} -tsvg ${fullname}
           done
           ls -al 
           tree ./
