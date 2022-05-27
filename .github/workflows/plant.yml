@@ -28,7 +28,7 @@ jobs:
       - name: Get changed files
         id: changed-files
         run: |
-          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT HEAD^..HEAD *.puml | xargs)"
+          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT ${{ steps.last_successful_commit.outputs.commit_hash }}..HEAD *.puml | xargs)"
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
