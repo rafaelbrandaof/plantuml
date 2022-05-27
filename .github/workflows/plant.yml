@@ -45,6 +45,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: plant uml images
-          path: |
-          src/plantuml/**/*.svg
-          src/plantuml/**/*.png
+          path: src/plantuml/
