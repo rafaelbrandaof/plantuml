@@ -1,0 +1,38 @@
+%%{init: { "sequence": { "wrap": true, "rightAngles": true } } }%%
+sequenceDiagram
+  actor U as Akteur in der Rolle Org-Admin
+  participant C as Frontend des Registrierungs-Dienstes
+  participant R as Registrierungs-Dienst
+  participant Auth as OAuth-Service
+  participant FP as FHIR-Proxy
+  participant VZD as FHIR-Directory
+  participant ms as Messenger Service
+loop 1..n
+  U->>C: Mit einem Admin-Account am Registrierungs-Dienst anmelden
+  activate C
+  C->>R: POST /login (Client-Credential)
+  activate R
+  R->>R: Client-Credential prüfen
+  R-->>C: status
+  deactivate R
+  C-->>U: Erfolgreich angemeldet
+  deactivate C
+  U->>+C: Messenger Service erstellen
+  C->>+R: POST /create (Matrix-Domain)
+  R->>R: Prüfung auf zulässigen Domainnamen
+  R->>R: Starte neuen Messenger-Service für die Organisation mit Matrix-Domain
+  R->>+ms: Messenger-Service erstellen 
+  ms->>ms: initial einrichten
+  ms-->>-R: status
+  R->>+Auth: POST /token (client_id, client_secret) (OAuth Client credentials flow)
+  Auth->>Auth: prüfe client_id und \nclient_secret
+  Auth-->>-R: admin-accesstoken
+  R->>+FP: POST /tim-provider-services/addTiMessengerDomain (admin-accesstoken, Matrix-Domain, TelematikID, isEnsurance)
+  FP->>FP: prüfe admin-accesstoken
+  FP->>+VZD: HTTPS Forward
+  VZD->>VZD: Föderationsliste aktualisieren
+  VZD-->>-FP: status
+  FP-->>-R: HTTPS Forward
+  R-->>-C: status
+  C-->>-U: Messenger Service erfolgreich erstellt
+end
