@@ -17,13 +17,13 @@ jobs:
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
-          args: -v -o images -tsvg src/plantuml
+          args: -v -o images -tsvg src/plantuml/**
     # Generieren der png Diagramme in einem images Ordner, 
     # der unterhalb der Ordner angelegt wird, in dem die PlantUML-Dateien gefunden werden
       - name: Generate PNG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
-          args: -v -o images -tpng src/plantuml
+          args: -v -o images -tpng src/plantuml/**
     # Ausgabe der Ordnerstruktur für Debugging
       - name: Generated Structure
         run: |
