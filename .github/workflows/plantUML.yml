@@ -6,18 +6,22 @@ jobs:
     name: Create PlantUML images
     runs-on: ubuntu-latest
     steps:
+    # Auschecken der Sourcen
       - name: Checkout Source
         uses: actions/checkout@v2
+    # Installieren von Java
       - name: Install Java
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '11'
           check-latest: true
+    # Download von Plantuml als Jar mit Graphviz
       - name: Download plantuml file
         run: |
           wget -O plantuml.jar "https://sourceforge.net/projects/plantuml/files/plantuml-nodot.1.2022.5.jar" 
           ls -ltr
+    # Generieren der Grafiken als SVG und PNG im Ordner images/diagrams
       - name: Generate Images
         run: |
           imagedir=images/diagrams
@@ -40,11 +44,13 @@ jobs:
           done
           ls -al 
           tree ./
+      # Upload der Bilder als Artefakt für Debugging
       - name: Archive created images
         uses: actions/upload-artifact@v3
         with:
           name: PlantUML images
           path: images/diagrams/
+      # Commit der neu erzeugten Bilder
       - name: Add & Commit
         uses: EndBug/add-and-commit@v8
         with:
