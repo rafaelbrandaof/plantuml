@@ -39,8 +39,8 @@ jobs:
             plantoutdir="${PWD}/${outdir}"
             echo "PlantOutdir: ${plantoutdir}"
             tree ./
-            java -jar plantuml.jar -v -o ${plantoutdir} -tpng ${fullname}
-            java -jar plantuml.jar -v -o ${plantoutdir} -tsvg ${fullname}
+            java -jar plantuml.jar -v -checkmetadata -o ${plantoutdir} -tpng ${fullname}
+            java -jar plantuml.jar -v -checkmetadata -o ${plantoutdir} -tsvg ${fullname}
           done
           ls -al 
           tree ./
