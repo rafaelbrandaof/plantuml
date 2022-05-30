@@ -25,7 +25,12 @@ jobs:
         with:
           workflow_id: 'createPlantUmlWithDiff.yml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo ${{ steps.last_successful_commit.outputs.commit_hash }}
+      - uses: haya14busa/action-cond@v1
+        id: check_condition
+        with:
+          cond: ${{ steps.last_successful_commit.outputs.commit_hash != '' }}
+          if_true: steps.last_successful_commit.outputs.commit_hash
+          if_false: "."
       - name: Get changed files
         id: changed-files
         run: |
