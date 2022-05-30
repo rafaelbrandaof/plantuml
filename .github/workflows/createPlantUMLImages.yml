@@ -6,25 +6,33 @@ jobs:
     name: Create PlantUML images
     runs-on: ubuntu-latest
     steps:
+    # Ermitteln des commit Hashes bei dem der Workflow zuletzt erfolgreich ausgeführt werden konnte. 
       - uses: nrwl/last-successful-commit-action@v1
         id: last_successful_commit
         with:
           workflow_id: 'createPlantUMLImages.yml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo ${{ steps.last_successful_commit.outputs.commit_hash }}
+      # Auschecken der Sourcen
       - name: Checkout Source
         uses: actions/checkout@v2
+      # Generieren der svg Diagramme in einem images Ordner, 
+      # der unterhalb der Ordner angelegt wird, in dem die PlantUML-Dateien gefunden werden
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
           args: -v -o images -tsvg plantuml
+      # Generieren der png Diagramme in einem images Ordner, 
+      # der unterhalb der Ordner angelegt wird, in dem die PlantUML-Dateien gefunden werden
       - name: Generate PNG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
           args: -v -o images -tpng plantuml
+      # Ausgabe der Ordnerstruktur für Debugging
       - name: Generated Structure
         run: |
-          tree ./
+          tree
+      # Upload der Artefakte an den Workflow für Debugging
       - name: Archive created images
         uses: actions/upload-artifact@v3
         with:
