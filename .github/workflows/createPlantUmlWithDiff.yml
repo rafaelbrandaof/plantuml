@@ -34,7 +34,7 @@ jobs:
       - name: Get changed files
         id: changed-files
         run: |
-          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT ${{ steps.last_successful_commit.outputs.commit_hash }}..HEAD *.puml | xargs)"
+          echo "::set-output name=all_changed_files::$(git diff --name-only --diff-filter=ACMRT ${{ steps.check_condition.output.value }}..HEAD *.puml | xargs)"
       - name: Generate SVG Diagrams
         uses: holowinski/plantuml-github-action@main
         with:
