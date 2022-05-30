@@ -37,10 +37,17 @@ jobs:
             echo "Outdir: ${outdir}"
             mkdir -p $outdir
             plantoutdir="${PWD}/${outdir}"
+            # -v für verbose Output (Debugging)
+            # -checkmetadata prüft anhand der Metadaten, 
+            # ob aus diesen bereits das passende png/svg erzeugt worden ist
+            # -o setzt den Ordner in dem die png/svg Dateien abgelegt werden
+            plantargs="-v -checkmetadata -o ${plantoutdir} ${fullname}"
             echo "PlantOutdir: ${plantoutdir}"
             tree ./
-            java -jar plantuml.jar -v -checkmetadata -o ${plantoutdir} -tpng ${fullname}
-            java -jar plantuml.jar -v -checkmetadata -o ${plantoutdir} -tsvg ${fullname}
+            # Seperate Aufrufe sind notwendig, 
+            # da nicht beide Ausgabetypen in einem Aufruf übergeben werden können
+            java -jar plantuml.jar -tpng ${plantargs} 
+            java -jar plantuml.jar -tsvg ${plantargs}
           done
           ls -al 
           tree ./
