@@ -24,7 +24,7 @@ jobs:
         id: last_successful_commit
         with:
           workflow_id: 'createPlantUmlWithDiff.yml'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.WIKI_TOKEN }}
       - uses: haya14busa/action-cond@v1
         id: check_condition
         with:
